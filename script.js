@@ -10,6 +10,7 @@ form.addEventListener('submit', async (e) => {
   const jobDescription = formData.get('jobDescription');
   const userEmail = formData.get('userEmail');
 
+  // Convert the resume file to text
   const resumeText = await resumeFile.text();
 
   // Send data to Zapier webhook
@@ -24,6 +25,7 @@ form.addEventListener('submit', async (e) => {
     })
   });
 
+  // Handle the response
   const result = await response.json();
   document.getElementById('responseMessage').innerText = "Resume submitted! Check your email for the updated version.";
 });
