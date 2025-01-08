@@ -28,6 +28,11 @@ form.addEventListener('submit', async (e) => {
       })
     });
 
+    // Check if the response status is OK
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
     // Parse the response from the Worker
     const result = await response.json();
 
@@ -53,12 +58,14 @@ form.addEventListener('submit', async (e) => {
       });
 
     } else {
-      console.error('No updated resume found in the response.');
-      document.getElementById('responseMessage').innerText = 'There was an error processing your resume. Please try again.';
+      throw new Error('No updated resume found in the response.');
     }
 
   } catch (error) {
-    console.error('Error:', error);
-    document.getElementById('responseMessage').innerText = 'There was an error submitting your resume. Please try again.';
+    // Log the error in the console
+    console.error('Error submitting form:', error);
+
+    // Display the error message on the page
+    document.getElementById('responseMessage').innerText = `There was an error: ${error.message}`;
   }
 });
