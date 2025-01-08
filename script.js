@@ -10,6 +10,7 @@ form.addEventListener('submit', async (e) => {
   const resumeFile = formData.get('resume');
   const jobTitle = formData.get('jobTitle');
   const jobDescription = formData.get('jobDescription');
+  const userEmail = formData.get('userEmail'); // Capture the email address
 
   // Convert the resume file to text
   const resumeText = await resumeFile.text();
@@ -22,7 +23,8 @@ form.addEventListener('submit', async (e) => {
       body: JSON.stringify({
         resumeText,
         jobTitle,
-        jobDescription
+        jobDescription,
+        userEmail // Include the email address in the request
       })
     });
 
