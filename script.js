@@ -4,9 +4,6 @@ const form = document.getElementById('resumeForm');
 // Add an event listener to handle form submission
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  console.log("Form submitted!"); 
-  // Log that the form was submitted
-  console.log("Form submitted");
 
   // Collect the form data
   const formData = new FormData(form);
@@ -15,17 +12,8 @@ form.addEventListener('submit', async (e) => {
   const jobDescription = formData.get('jobDescription');
   const userEmail = formData.get('userEmail');
 
-  // Log the form data to make sure it's being collected
-  console.log("Resume file:", resumeFile);
-  console.log("Job Title:", jobTitle);
-  console.log("Job Description:", jobDescription);
-  console.log("User Email:", userEmail);
-
   // Convert the resume file to text
   const resumeText = await resumeFile.text();
-
-  // Log the converted resume text
-  console.log("Resume text:", resumeText);
 
   // Send the form data to the Zapier webhook
   try {
@@ -40,15 +28,29 @@ form.addEventListener('submit', async (e) => {
       })
     });
 
-    // Display a success message to the user
-    document.getElementById('responseMessage').innerText = "Resume submitted! Check your email for the updated version.";
-    console.log("Zapier response:", await response.text());
+    // Parse the response from Zapier
+    const result = await response.json();
+
+    // Display the updated resume on the page
+    const responseMessage = document.getElementById('responseMessage');
+    responseMessage.innerHTML = `
+      <h2>Your Updated Resume</h2>
+      <pre>${result.updatedResume}</pre>
+      <button id="downloadBtn">Download Your Updated Resume</button>
+    `;
+
+    // Add functionality to download the resume as a text file
+    const downloadBtn = document.getElementById('downloadBtn');
+    downloadBtn.addEventListener('click', () => {
+      const blob = new Blob([result.updatedResume], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'Updated_Resume.txt';
+      link.click();
+    });
 
   } catch (error) {
-    // Handle any errors during the fetch
     console.error("Error submitting form:", error);
     document.getElementById('responseMessage').innerText = "There was an error submitting your resume. Please try again.";
   }
-
-  console.log("JavaScript is running!");
 });
