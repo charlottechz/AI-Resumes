@@ -4,7 +4,7 @@ const form = document.getElementById('resumeForm');
 // Add an event listener to handle form submission
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
-
+  console.log("Form submitted!"); 
   // Log that the form was submitted
   console.log("Form submitted");
 
