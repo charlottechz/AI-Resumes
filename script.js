@@ -52,4 +52,6 @@ form.addEventListener('submit', async (e) => {
     console.error("Error submitting form:", error);
     document.getElementById('responseMessage').innerText = "There was an error submitting your resume. Please try again.";
   }
+
+  console.log("JavaScript is running!");
 });
