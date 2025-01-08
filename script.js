@@ -12,7 +12,7 @@ form.addEventListener('submit', async (e) => {
   const resumeText = await resumeFile.text();
 
   // Send data to the backend
-  const response = await fetch('https://YOUR-WORKER-URL.workers.dev', {
+  const response = await fetch('https://purple-sky-ddbe.charlotteachaze.workers.dev/', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
