@@ -1,4 +1,4 @@
-// Select the form by its ID
+f// Select the form by its ID
 const form = document.getElementById('resumeForm');
 
 // Add an event listener to handle form submission
@@ -29,16 +29,16 @@ form.addEventListener('submit', async (e) => {
 
   // Send the form data to the Zapier webhook
   try {
-    const response = await fetch('https://hooks.zapier.com/hooks/catch/11992565/2zmwgxx/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        resumeText,
-        jobTitle,
-        jobDescription,
-        userEmail
-      })
-    });
+const response = await fetch('https://hooks.zapier.com/hooks/catch/11992565/2zmwgxx/', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  body: new URLSearchParams({
+    resumeText,
+    jobTitle,
+    jobDescription,
+    userEmail
+  })
+});
 
     // Parse the response from Zapier
     const result = await response.json();
