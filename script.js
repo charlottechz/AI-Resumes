@@ -4,12 +4,24 @@ form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const formData = new FormData(form);
+  const resumeFile = formData.get('resume');
+  const jobTitle = formData.get('jobTitle');
+  const jobDescription = formData.get('jobDescription');
 
-  const response = await fetch('https://your-backend-server.com/upload', {
+  // Convert resume file to text (for simplicity)
+  const resumeText = await resumeFile.text();
+
+  // Send data to the backend
+  const response = await fetch('https://YOUR-WORKER-URL.workers.dev', {
     method: 'POST',
-    body: formData,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      resumeText,
+      jobTitle,
+      jobDescription
+    })
   });
 
   const result = await response.json();
-  document.getElementById('responseMessage').innerText = result.message;
+  document.getElementById('responseMessage').innerText = result.updatedResume;
 });
