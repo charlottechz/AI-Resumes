@@ -15,4 +15,4 @@ You may **not**:
 - Use this tool in a paid product or service.
 - Monetize the tool in any way.
 
-If you would like to request **commercial use rights**, please contact **hello@howtobreakintotech.com**.
+If you would like to request **commercial use rights**, please contact **hello@breakintotech.com**.
